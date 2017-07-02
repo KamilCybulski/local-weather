@@ -3,9 +3,11 @@ import Paper from 'material-ui/Paper';
 import CircularProgress from 'material-ui/CircularProgress';
 
 
-const Loader = () => (
+const Loader = ({ msg }) => (
   <div className="loader">
     <CircularProgress size={80} thickness={5} color="#fff"/>
+
+    <h2>{msg}</h2>
   </div>
 );
 
@@ -31,7 +33,8 @@ class App extends React.Component {
       tempC: undefined,
       tempF: undefined,
       currentTemp: "C",
-      sky: undefined
+      sky: undefined,
+      msg: ""
     }
   }
 
@@ -98,7 +101,7 @@ class App extends React.Component {
         let url = `https://api.apixu.com/v1/current.json?key=${key}&q=${position.coords.latitude.toFixed(2)},${position.coords.longitude.toFixed(2)}`
         resolve(url);
       },
-      () => {reject("Cannot get geolocation data")}
+      () => {reject("Please turn on geolocation")}
     );
   });
 
@@ -126,8 +129,14 @@ class App extends React.Component {
     );
   }
 
+  errorHandler = (err) => {
+    this.setState(
+      () => ({ msg : err})
+    )
+  }
+
   componentDidMount = () => {
-    this.getPosition().then(this.getWeather).then(this.pushData);
+    this.getPosition().then(this.getWeather).then(this.pushData).catch(this.errorHandler);
   }
 
 
@@ -144,7 +153,7 @@ class App extends React.Component {
               icon={this.state.sky}
               unit={this.state.currentTemp}
               switcher={this.changeUnit} />
-          : <Loader />}
+          : <Loader msg={this.state.msg} />}
       </Paper>
     );
   }
