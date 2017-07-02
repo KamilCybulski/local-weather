@@ -1,0 +1,46 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Roboto", sans-serif;
+}
+
+.main-container {
+  box-sizing: border-box;
+  margin-top: 50px;
+  width: 300px;
+  height: 400px;
+  padding: 20px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-around;
+  align-items: center;
+  
+  i {
+    font-size: 150px;
+  }
+}
+
+.data {
+  box-sizing: border-box;
+  height: 120px;
+  padding: 20px;
+  font-size: 70px;
+  font-weight: 700;
+  border-top: 5px solid #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.weather-box {
+  height: 90%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.unit-container {
+  cursor: pointer;
+}
